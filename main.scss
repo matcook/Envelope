@@ -1,0 +1,202 @@
+$envelope-width: 350px;
+$envelope-height: 200px;
+$envelope-color: #dfc8a9;
+$rotate-time: 0.5s;
+$flap-transition: 0.2s;
+$remove-time: 0.2s;
+$content-transition: 0.5s;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  background: #333;
+}
+
+.envelope-container {
+  perspective: 1000px;
+  height: $envelope-height;
+  width: $envelope-width;
+  filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 1));
+
+  .envelope {
+    height: 100%;
+    width: 100%;
+    transition: transform $rotate-time ($remove-time + $flap-transition + $content-transition);
+    transform-style: preserve-3d;
+    position: relative;
+
+    .envelope-front,
+    .envelope-back {
+      height: 100%;
+      width: 100%;
+      backface-visibility: hidden;
+      position: absolute;
+    }
+
+    .envelope-front {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: darken($envelope-color, 5%);
+      backface-visibility: hidden;
+      transform: rotateY(0deg);
+
+      h1 {
+        font-size: $envelope-height/10;
+        font-family: sans-serif;
+        display: inline-block;
+        padding: 5px 10px;
+        color: red;
+        text-transform: uppercase;
+        text-align: center;
+        margin: $envelope-height/10;
+        border: 5px solid red;
+        border-radius: 3px;
+        transform: rotateZ(-3deg);
+        mask-size: contain;
+        mask-image: url("../images/grunge-texture.png");
+      }
+
+      .stamp {
+        display: inline-block;
+        width: 12%;
+        height: 24%;
+        position: absolute;
+        right: 5%;
+        top: 7%;
+        border-image: url("../images/stamp-border.png") 8 round;
+        border-width: 2px;
+        border-style: solid;
+
+        .stamp-content {
+          width: 100%;
+          height: 100%;
+          background: url("../images/stamp.jpg");
+          background-size: 100% 100%;
+        }
+      }
+    }
+
+    .envelope-back {
+      transform: rotateY(180deg);
+      background: darken($envelope-color, 20%);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .envelope-flap {
+      height: 100%;
+      width: 100%;
+      clip-path: polygon(0 0, 100% 0, 98% 10%, 50% 70%, 2% 10%);
+      background: darken($envelope-color, 10%);
+      transition: transform $flap-transition ($remove-time + $content-transition),
+        z-index 0s ($remove-time + $content-transition);
+      transform-origin: top;
+      z-index: 2;
+    }
+
+    .envelope-content {
+      position: absolute;
+      height: $envelope-height - 15px;
+      width: $envelope-width - 30px;
+      transition: transform $remove-time $content-transition,
+        z-index 0s $content-transition;
+      perspective: 1000px;
+      z-index: -2;
+
+      .page-content {
+        height: 100%;
+        width: 100%;
+        background: url("https://www.fillmurray.com/320/370");
+        background-size: 100% 200%;
+
+        &:nth-of-type(1) {
+          background-position: top;
+        }
+
+        &:nth-of-type(2) {
+          backface-visibility: hidden;
+          background-position: bottom;
+          transform-origin: top;
+          position: absolute;
+          transform: rotateX(180deg);
+          transition: transform $content-transition 0s;
+          transform-style: preserve-3d;
+
+          &::after {
+            content: "";
+            display: inline-block;
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            transform: rotateX(180deg);
+            background: white;
+          }
+        }
+      }
+    }
+
+    .envelope-pouch {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      clip-path: polygon(0% 100%, 100% 100%, 100% 0, 75% 35%, 25% 35%, 0 0);
+      background: darken($envelope-color, 5%);
+
+      &::after {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+        clip-path: polygon(0% 100%,
+          100% 100%,
+          100% 100%,
+          75% 35%,
+          25% 35%,
+          0 100%);
+        background: $envelope-color;
+      }
+    }
+
+    &.active {
+      transform: rotateY(180deg);
+      transition: transform $rotate-time 0s;
+
+      .envelope-flap {
+        transition: transform $flap-transition $rotate-time,
+          z-index 0s ($flap-transition + $rotate-time);
+        transform: rotateX(180deg);
+        z-index: -5;
+      }
+
+      .envelope-content {
+        transition: transform $remove-time ($rotate-time + $flap-transition),
+          z-index 0s ($rotate-time + $flap-transition + $remove-time);
+        transform: translateY(-$envelope-height);
+        z-index: 2;
+
+        .page-content:nth-of-type(2) {
+          transition: transform $content-transition ($flap-transition + $rotate-time + $remove-time);
+          transform: rotateX(0deg);
+        }
+      }
+    }
+  }
+
+  & :hover {
+    cursor: pointer;
+  }
+}

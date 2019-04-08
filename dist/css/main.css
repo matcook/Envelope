@@ -1,0 +1,260 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  background: #333;
+}
+
+.envelope-container {
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
+  height: 200px;
+  width: 350px;
+  -webkit-filter: drop-shadow(5px 5px 5px black);
+          filter: drop-shadow(5px 5px 5px black);
+}
+
+.envelope-container .envelope {
+  height: 100%;
+  width: 100%;
+  -webkit-transition: -webkit-transform 0.5s 0.9s;
+  transition: -webkit-transform 0.5s 0.9s;
+  -o-transition: transform 0.5s 0.9s;
+  transition: transform 0.5s 0.9s;
+  transition: transform 0.5s 0.9s, -webkit-transform 0.5s 0.9s;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  position: relative;
+}
+
+.envelope-container .envelope .envelope-front,
+.envelope-container .envelope .envelope-back {
+  height: 100%;
+  width: 100%;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  position: absolute;
+}
+
+.envelope-container .envelope .envelope-front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #d8bc96;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+}
+
+.envelope-container .envelope .envelope-front h1 {
+  font-size: 20px;
+  font-family: sans-serif;
+  display: inline-block;
+  padding: 5px 10px;
+  color: red;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 20px;
+  border: 5px solid red;
+  border-radius: 3px;
+  -webkit-transform: rotateZ(-3deg);
+      -ms-transform: rotate(-3deg);
+          transform: rotateZ(-3deg);
+  -webkit-mask-size: contain;
+          mask-size: contain;
+  -webkit-mask-image: url("../images/grunge-texture.png");
+          mask-image: url("../images/grunge-texture.png");
+}
+
+.envelope-container .envelope .envelope-front .stamp {
+  display: inline-block;
+  width: 12%;
+  height: 24%;
+  position: absolute;
+  right: 5%;
+  top: 7%;
+  -o-border-image: url("../images/stamp-border.png") 8 round;
+     border-image: url("../images/stamp-border.png") 8 round;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.envelope-container .envelope .envelope-front .stamp .stamp-content {
+  width: 100%;
+  height: 100%;
+  background: url("../images/stamp.jpg");
+  background-size: 100% 100%;
+}
+
+.envelope-container .envelope .envelope-back {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+  background: #c3985f;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.envelope-container .envelope .envelope-flap {
+  height: 100%;
+  width: 100%;
+  -webkit-clip-path: polygon(0 0, 100% 0, 98% 10%, 50% 70%, 2% 10%);
+          clip-path: polygon(0 0, 100% 0, 98% 10%, 50% 70%, 2% 10%);
+  background: #d1b084;
+  -webkit-transition: z-index 0s 0.7s, -webkit-transform 0.2s 0.7s;
+  transition: z-index 0s 0.7s, -webkit-transform 0.2s 0.7s;
+  -o-transition: transform 0.2s 0.7s, z-index 0s 0.7s;
+  transition: transform 0.2s 0.7s, z-index 0s 0.7s;
+  transition: transform 0.2s 0.7s, z-index 0s 0.7s, -webkit-transform 0.2s 0.7s;
+  -webkit-transform-origin: top;
+      -ms-transform-origin: top;
+          transform-origin: top;
+  z-index: 2;
+}
+
+.envelope-container .envelope .envelope-content {
+  position: absolute;
+  height: 185px;
+  width: 320px;
+  -webkit-transition: z-index 0s 0.5s, -webkit-transform 0.2s 0.5s;
+  transition: z-index 0s 0.5s, -webkit-transform 0.2s 0.5s;
+  -o-transition: transform 0.2s 0.5s, z-index 0s 0.5s;
+  transition: transform 0.2s 0.5s, z-index 0s 0.5s;
+  transition: transform 0.2s 0.5s, z-index 0s 0.5s, -webkit-transform 0.2s 0.5s;
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
+  z-index: -2;
+}
+
+.envelope-container .envelope .envelope-content .page-content {
+  height: 100%;
+  width: 100%;
+  background: url("https://www.fillmurray.com/320/370");
+  background-size: 100% 200%;
+}
+
+.envelope-container .envelope .envelope-content .page-content:nth-of-type(1) {
+  background-position: top;
+}
+
+.envelope-container .envelope .envelope-content .page-content:nth-of-type(2) {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  background-position: bottom;
+  -webkit-transform-origin: top;
+      -ms-transform-origin: top;
+          transform-origin: top;
+  position: absolute;
+  -webkit-transform: rotateX(180deg);
+          transform: rotateX(180deg);
+  -webkit-transition: -webkit-transform 0.5s 0s;
+  transition: -webkit-transform 0.5s 0s;
+  -o-transition: transform 0.5s 0s;
+  transition: transform 0.5s 0s;
+  transition: transform 0.5s 0s, -webkit-transform 0.5s 0s;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+.envelope-container .envelope .envelope-content .page-content:nth-of-type(2)::after {
+  content: "";
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transform: rotateX(180deg);
+          transform: rotateX(180deg);
+  background: white;
+}
+
+.envelope-container .envelope .envelope-pouch {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  -webkit-clip-path: polygon(0% 100%, 100% 100%, 100% 0, 75% 35%, 25% 35%, 0 0);
+          clip-path: polygon(0% 100%, 100% 100%, 100% 0, 75% 35%, 25% 35%, 0 0);
+  background: #d8bc96;
+}
+
+.envelope-container .envelope .envelope-pouch::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  -webkit-clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 75% 35%, 25% 35%, 0 100%);
+          clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 75% 35%, 25% 35%, 0 100%);
+  background: #dfc8a9;
+}
+
+.envelope-container .envelope.active {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+  -webkit-transition: -webkit-transform 0.5s 0s;
+  transition: -webkit-transform 0.5s 0s;
+  -o-transition: transform 0.5s 0s;
+  transition: transform 0.5s 0s;
+  transition: transform 0.5s 0s, -webkit-transform 0.5s 0s;
+}
+
+.envelope-container .envelope.active .envelope-flap {
+  -webkit-transition: z-index 0s 0.7s, -webkit-transform 0.2s 0.5s;
+  transition: z-index 0s 0.7s, -webkit-transform 0.2s 0.5s;
+  -o-transition: transform 0.2s 0.5s, z-index 0s 0.7s;
+  transition: transform 0.2s 0.5s, z-index 0s 0.7s;
+  transition: transform 0.2s 0.5s, z-index 0s 0.7s, -webkit-transform 0.2s 0.5s;
+  -webkit-transform: rotateX(180deg);
+          transform: rotateX(180deg);
+  z-index: -5;
+}
+
+.envelope-container .envelope.active .envelope-content {
+  -webkit-transition: z-index 0s 0.9s, -webkit-transform 0.2s 0.7s;
+  transition: z-index 0s 0.9s, -webkit-transform 0.2s 0.7s;
+  -o-transition: transform 0.2s 0.7s, z-index 0s 0.9s;
+  transition: transform 0.2s 0.7s, z-index 0s 0.9s;
+  transition: transform 0.2s 0.7s, z-index 0s 0.9s, -webkit-transform 0.2s 0.7s;
+  -webkit-transform: translateY(-200px);
+      -ms-transform: translateY(-200px);
+          transform: translateY(-200px);
+  z-index: 2;
+}
+
+.envelope-container .envelope.active .envelope-content .page-content:nth-of-type(2) {
+  -webkit-transition: -webkit-transform 0.5s 0.9s;
+  transition: -webkit-transform 0.5s 0.9s;
+  -o-transition: transform 0.5s 0.9s;
+  transition: transform 0.5s 0.9s;
+  transition: transform 0.5s 0.9s, -webkit-transform 0.5s 0.9s;
+  -webkit-transform: rotateX(0deg);
+          transform: rotateX(0deg);
+}
+
+.envelope-container :hover {
+  cursor: pointer;
+}
+/*# sourceMappingURL=main.css.map */
